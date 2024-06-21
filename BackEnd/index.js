@@ -21,7 +21,7 @@ const connectWithDb = require("./config/database");
 connectWithDb();
 
 app.get("/", (req, res) => {
-    res.send(`<h1>This is my home page</h1>`);
+    res.send(`<h1>Server is running</h1>`);
 })
 
 

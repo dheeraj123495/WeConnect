@@ -23,10 +23,10 @@ const Login = ({ setIsLoggedIn }) => {
       toast.error("Please enter password");
       return;
     }
-
     axios
       .post(
-        `${process.env.REACT_APP_BASE_URL}/login`,
+      // `${process.env.REACT_APP_BASE_URL}/login`,
+       "https://weconnect-lr69.onrender.com/login",
         { userEmail, userPassword }
       )
       .then((result) => {
@@ -42,8 +42,7 @@ const Login = ({ setIsLoggedIn }) => {
         }
       })
       .catch((err) => {
-        console.log(err);
-        console.log("Error: " + err.message);
+        toast.error("Unable to login");
       });
   };
 
