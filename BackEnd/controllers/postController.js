@@ -11,7 +11,6 @@ const uploadImage = upload.single("image");
 exports.createPost = async (req, res) => {
   try {
     uploadImage(req, res, async (err) => {
-      console.log(req);
       if (err) {
         return res.status(400).json({
           error: "Error uploading image",
@@ -64,7 +63,6 @@ exports.getAllPosts = async (req, res) => {
     res.json({
       posts: posts.map((post) => ({
         postData: post.postData,
-        //userName: post.userId.userName,
         userId: post.userId,
         image: post.image ? Buffer.from(post.image).toString("base64") : null,
         likes: post.likes,

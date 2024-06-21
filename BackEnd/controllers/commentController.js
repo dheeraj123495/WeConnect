@@ -28,8 +28,8 @@ exports.createComment = async (req, res) => {
       message: "Comment saved successfully",
     });
   } catch (err) {
-    return res.status(500).json({
-      error: "Error saving comment",
+    return res.json({
+      message: "Error saving comment",
     });
   }
 };

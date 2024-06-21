@@ -19,8 +19,6 @@ function App() {
             path="/login"
             element={<Login setIsLoggedIn={setIsLoggedIn} />}
           />
-          {/* <Route path="/home" element={<Home />} />
-          <Route path="/postupload" element={<PostUpload />} /> */}
           <Route
             path="/home"
             element={

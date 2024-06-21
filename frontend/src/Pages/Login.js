@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { setUserId } from "../Components/Redux/Slice/PostSlice";
+import logo from "../Assets/Logo.png";
 
 const Login = ({ setIsLoggedIn }) => {
   const [userEmail, setEmail] = useState();
@@ -14,9 +15,12 @@ const Login = ({ setIsLoggedIn }) => {
   const dispatch = useDispatch();
   const handleSubmit = (event) => {
     event.preventDefault();
-
     axios
-      .post("http://192.168.1.6:3001/login", { userEmail, userPassword })
+      .post(
+        `${process.env.REACT_APP_BASE_URL}/login`,
+        // "http://192.168.1.3:3001/login",
+        { userEmail, userPassword }
+      )
       .then((result) => {
         if (result.data.status === "success") {
           toast.success("Login successful!");
@@ -30,8 +34,8 @@ const Login = ({ setIsLoggedIn }) => {
         }
       })
       .catch((err) => {
-        console.log(err)
-        console.log("Error: " + err.message)
+        console.log(err);
+        console.log("Error: " + err.message);
       });
   };
 
@@ -45,6 +49,12 @@ const Login = ({ setIsLoggedIn }) => {
         }}
       >
         <div className="bg-white p-3 rounded w-full md:w-[30%] max-w-[400px]">
+          <img
+            src={logo}
+            alt="weconnect"
+            width={150}
+            className="justify-center mx-auto mt-[-40px] rounded-xl"
+          />
           <h2 className="mb-2 text-primary font-bold text-2xl">Login</h2>
           <form onSubmit={handleSubmit} className="text-start">
             <div className="mb-3">
@@ -73,9 +83,11 @@ const Login = ({ setIsLoggedIn }) => {
                 required
               />
             </div>
-            <button type="submit" className="btn btn-primary">
-              Login
-            </button>
+            <div className="flex justify-center">
+              <button type="submit" className="btn btn-primary">
+                Login
+              </button>
+            </div>
           </form>
           <p className="container my-2">Don&apos;t have an account?</p>
           <Link to="/register" className="btn btn-secondary">

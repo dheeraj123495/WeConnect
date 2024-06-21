@@ -11,16 +11,24 @@ const Card = ({ post, userId, loadData }) => {
   const [commentCount, updateCommentCount] = useState(post.comments.length);
   const likePost = () => {
     axios
-      .post("http://192.168.1.6:3001/likes/likepost", {
-        postId: post.postId,
-        userId: userId,
-      })
+      .post(
+        // "http://192.168.1.5:3001/likes/likepost",
+        `${process.env.REACT_APP_BASE_URL}/likes/likepost`,
+        {
+          postId: post.postId,
+          userId: userId,
+        }
+      )
       .then((res) => {
         toast.success(res.data.message);
         axios
-          .post("http://192.168.1.6:3001/posts/getUpdatedPost", {
-            postId: post.postId,
-          })
+          .post(
+            `${process.env.REACT_APP_BASE_URL}/posts/getUpdatedPost`,
+            // "http://192.168.1.5:3001/posts/getUpdatedPost",
+            {
+              postId: post.postId,
+            }
+          )
           .then((res) => {
             updateLikeCount(res.data.post.likes.length);
           });
@@ -46,18 +54,27 @@ const Card = ({ post, userId, loadData }) => {
   }, [likeCount, commentCount]);
   
   const submitComment = () => {
+    console.log(post.postId, userId, userComment);
     axios
-      .post("http://192.168.1.6:3001/comments/create", {
-        postId: post.postId,
-        userId: userId,
-        body: userComment,
-      })
+      .post(
+        // "http://192.168.1.5:3001/comments/create",
+        `${process.env.REACT_APP_BASE_URL}/comments/create`,
+        {
+          postId: post.postId,
+          userId: userId,
+          body: userComment,
+        }
+      )
       .then((res) => {
         toast.success("Commented Successfully");
         axios
-          .post("http://192.168.1.6:3001/posts/getUpdatedPost", {
-            postId: post.postId,
-          })
+          .post(
+            `${process.env.REACT_APP_BASE_URL}/posts/getUpdatedPost`,
+            // "http://192.168.1.5:3001/posts/getUpdatedPost",
+            {
+              postId: post.postId,
+            }
+          )
           .then((res) => {
             updateCommentCount(res.data.post.comments.length);
           });

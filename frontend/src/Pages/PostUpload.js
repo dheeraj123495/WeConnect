@@ -3,6 +3,7 @@ import axios from "axios";
 import Navbar from "../Components/Navbar";
 import { useSelector } from "react-redux";
 import toast from "react-hot-toast";
+// import process from "dotenv"
 const PostUpload = () => {
   const userId = useSelector((state) => state.userId.id);
   const [file, setFile] = useState(null);
@@ -16,8 +17,8 @@ const PostUpload = () => {
       toast.error("Please select an image to upload");
       return;
     }
-    if (file.size > 200000) {
-      toast.error("Image size should be less than 1KB");
+    if (file.size > 500000) {
+      toast.error("Image size should be less than 100KB");
       setFile(null)
       return;
     }
@@ -27,7 +28,8 @@ const PostUpload = () => {
     formData.append("postData", usetCaption);
     try {
       const response = await axios.post(
-        "http://192.168.1.6:3001/createPost",
+        `${process.env.REACT_APP_BASE_URL}/createPost`,
+        // "http://192.168.1.5:3001/createPost",
         formData,
         {
           headers: {
@@ -44,16 +46,16 @@ const PostUpload = () => {
   return (
     <div>
       <Navbar />
-      <div className="flex flex-wrap p-6 gap-x-6 md:gap-x-10 mx-auto justify-center bg-slate-50 shadow-md md:w-6/12 h-[300px] border-dotted border-richblack border-4">
+      <div className="flex flex-wrap p-6 gap-x-6 md:gap-x-10 mx-auto justify-center bg-slate-50 shadow-md md:w-6/12 md:h-[300px] h-[540px] border-dotted border-richblack border-4">
         <div className="w-full md:w-auto">
           {file ? (
             <img
               src={URL.createObjectURL(file)}
               alt="Uploaded"
-              className="w-full h-auto max-w-full max-h-[180px] md:max-w-[200px] md:h-auto"
+              className="w-full h-auto max-w-full max-h-[220px] md:max-w-[220px] md:h-auto"
             />
           ) : (
-            <div className="w-full h-[180px] bg-slate-100 flex items-center justify-center">
+            <div className="h-[280px] w-full md:h-[200px] bg-slate-100 flex items-center justify-center">
               <p className="text-center mt-2">No Image Selected</p>
             </div>
           )}
@@ -79,12 +81,14 @@ const PostUpload = () => {
             className="block w-full mt-1 text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100"
             onChange={handleFileChange}
           />
-          <button
-            className="float-right bg-green-400 px-2 py-1 rounded-md text-white font-bold mt-2 md:mt-0"
-            onClick={handleUpload}
-          >
-            Upload
-          </button>
+          <div className="flex justify-center md:float-right">
+            <button
+              className="bg-green-400 px-2 py-1 rounded-md text-white font-bold mt-3 md:mt-2"
+              onClick={handleUpload}
+            >
+              Upload
+            </button>
+          </div>
         </div>
       </div>
     </div>

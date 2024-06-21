@@ -18,7 +18,6 @@ exports.likePost = async (req, res) => {
           );
 
           res.json({
-            // data: updatedPost,
             message: "Successfully unliked post",
           });
         } else {
@@ -29,15 +28,14 @@ exports.likePost = async (req, res) => {
             { new: true }
           );
           res.json({
-            // data: updatedPost,
             message: "Successfully liked post",
           });
         }
       }
     );
   } catch (err) {
-    return res.status(500).json({
-      error: "Error liking post",
+    return res.json({
+      message: "Error liking post",
     });
   }
 };

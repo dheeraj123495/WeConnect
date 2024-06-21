@@ -2,16 +2,16 @@ import React, { useEffect, useState } from "react";
 import Navbar from "../Components/Navbar";
 import axios from "axios";
 import Card from "../Components/Card";
-import { useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 const Home = () => {
   const [posts, setPosts] = useState([]);
-  const location = useLocation();
-  //const userId = location.state.userId;
   const userId = useSelector((state) => state.userId.id);
   const loadData = () => {
     axios
-      .get("http://192.168.1.6:3001/posts/getAllPosts")
+      .get(
+        `${process.env.REACT_APP_BASE_URL}/posts/getAllPosts`
+        // "http://192.168.1.5:3001/posts/getAllPosts"
+      )
       .then((res) => {
         setPosts(res.data.posts);
       })
