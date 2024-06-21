@@ -5,7 +5,7 @@ import Login from "./Pages/Login";
 import Home from "./Pages/Home";
 import PostUpload from "./Pages/PostUpload";
 import PrivateRoute from "./Components/PrivateRouter"
-
+import { Analytics } from "@vercel/analytics/react";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -37,6 +37,7 @@ function App() {
           />
         </Routes>
       </BrowserRouter>
+      <Analytics />
     </div>
   );
 }
