@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {  useEffect, useState } from "react";
 import { FcLike, FcLikePlaceholder } from "react-icons/fc";
 import { FaComment } from "react-icons/fa";
 import axios from "axios";
@@ -12,7 +12,6 @@ const Card = ({ post, userId, loadData }) => {
   const likePost = () => {
     axios
       .post(
-        // "http://192.168.1.5:3001/likes/likepost",
         `${process.env.REACT_APP_BASE_URL}/likes/likepost`,
         {
           postId: post.postId,
@@ -24,7 +23,6 @@ const Card = ({ post, userId, loadData }) => {
         axios
           .post(
             `${process.env.REACT_APP_BASE_URL}/posts/getUpdatedPost`,
-            // "http://192.168.1.5:3001/posts/getUpdatedPost",
             {
               postId: post.postId,
             }
@@ -49,6 +47,7 @@ const Card = ({ post, userId, loadData }) => {
       return false;
     }
   }
+
   useEffect(() => {
     loadData();
   }, [likeCount, commentCount]);
@@ -57,7 +56,6 @@ const Card = ({ post, userId, loadData }) => {
     console.log(post.postId, userId, userComment);
     axios
       .post(
-        // "http://192.168.1.5:3001/comments/create",
         `${process.env.REACT_APP_BASE_URL}/comments/create`,
         {
           postId: post.postId,
@@ -70,7 +68,6 @@ const Card = ({ post, userId, loadData }) => {
         axios
           .post(
             `${process.env.REACT_APP_BASE_URL}/posts/getUpdatedPost`,
-            // "http://192.168.1.5:3001/posts/getUpdatedPost",
             {
               postId: post.postId,
             }

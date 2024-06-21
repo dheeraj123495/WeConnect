@@ -17,7 +17,6 @@ const Register = () => {
     axios
       .post(
         `${process.env.REACT_APP_BASE_URL}/register`,
-        //  "http://192.168.1.3:3001/register",
         {
           userName,
           userEmail,

@@ -9,16 +9,24 @@ import { setUserId } from "../Components/Redux/Slice/PostSlice";
 import logo from "../Assets/Logo.png";
 
 const Login = ({ setIsLoggedIn }) => {
-  const [userEmail, setEmail] = useState();
-  const [userPassword, setPassword] = useState();
+  const [userEmail, setEmail] = useState("");
+  const [userPassword, setPassword] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleSubmit = (event) => {
     event.preventDefault();
+    if (userEmail === "") {
+      toast.error("Please enter email address");
+      return;
+    }
+    if (userPassword === "") {
+      toast.error("Please enter password");
+      return;
+    }
+
     axios
       .post(
         `${process.env.REACT_APP_BASE_URL}/login`,
-        // "http://192.168.1.3:3001/login",
         { userEmail, userPassword }
       )
       .then((result) => {

@@ -10,7 +10,6 @@ const Home = () => {
     axios
       .get(
         `${process.env.REACT_APP_BASE_URL}/posts/getAllPosts`
-        // "http://192.168.1.5:3001/posts/getAllPosts"
       )
       .then((res) => {
         setPosts(res.data.posts);

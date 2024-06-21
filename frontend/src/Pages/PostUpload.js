@@ -3,11 +3,11 @@ import axios from "axios";
 import Navbar from "../Components/Navbar";
 import { useSelector } from "react-redux";
 import toast from "react-hot-toast";
-// import process from "dotenv"
+
 const PostUpload = () => {
   const userId = useSelector((state) => state.userId.id);
   const [file, setFile] = useState(null);
-  const [usetCaption,setUserCaption] = useState("");
+  const [userCaption,setUserCaption] = useState("");
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
   };
@@ -22,14 +22,18 @@ const PostUpload = () => {
       setFile(null)
       return;
     }
+    if (userCaption === "") {
+      toast.error("Caption should not be empty");
+      return;
+    }
     const formData = new FormData();
     formData.append("image", file);
     formData.append("userId", userId);
-    formData.append("postData", usetCaption);
+    formData.append("postData", userCaption);
+    console.log(formData);
     try {
       const response = await axios.post(
         `${process.env.REACT_APP_BASE_URL}/createPost`,
-        // "http://192.168.1.5:3001/createPost",
         formData,
         {
           headers: {
@@ -66,7 +70,7 @@ const PostUpload = () => {
               name="text"
               maxLength={30}
               minLength={1}
-              value={usetCaption}
+              value={userCaption}
               onChange={(e) => setUserCaption(e.target.value)}
               className="rounded-[0.5rem] px-[12px] py-[6px] text-richblack-5 border mt-1 border-richblack-700"
             />
