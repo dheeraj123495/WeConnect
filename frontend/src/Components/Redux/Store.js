@@ -1,13 +1,3 @@
-// import { configureStore } from "@reduxjs/toolkit";
-// import PostSlice from "./Slice/PostSlice";
-
-// export const store = configureStore({
-//     reducer: {
-//         userId : PostSlice
-//     },
-// })
-
-
 import { configureStore } from "@reduxjs/toolkit";
 import PostSlice from "./Slice/PostSlice";
 
@@ -16,7 +6,6 @@ const saveState = (state) => {
     const serializedState = JSON.stringify(state);
     localStorage.setItem("reduxState", serializedState);
   } catch (err) {
-    // Ignore write errors
   }
 };
 
@@ -38,7 +27,7 @@ export const store = configureStore({
   reducer: {
     userId: PostSlice,
   },
-  preloadedState: persistedState, // Load persisted state
+  preloadedState: persistedState, 
 });
 
 store.subscribe(() => {

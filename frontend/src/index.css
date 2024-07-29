@@ -4,14 +4,11 @@
 
 .container {
     width: 300px;
-    /* Adjust as needed */
 }
 
 .scrollable-container {
     height: 200px;
-    /* Fixed height */
     overflow-y: scroll;
-    /* Enable vertical scrolling */
 }
 
 .number-list {

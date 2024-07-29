@@ -30,7 +30,7 @@ const PostUpload = () => {
     formData.append("image", file);
     formData.append("userId", userId);
     formData.append("postData", userCaption);
-    console.log(formData);
+    const token = localStorage.getItem("token");
     try {
       const response = await axios.post(
         `${process.env.REACT_APP_BASE_URL}/createPost`,
@@ -38,6 +38,7 @@ const PostUpload = () => {
         {
           headers: {
             "Content-Type": "multipart/form-data",
+            Authorization : `Bearer ${token}`,
           },
         }
       );

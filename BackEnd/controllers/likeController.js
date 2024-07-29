@@ -4,8 +4,8 @@ const Like = require("../models/likeModel");
 
 exports.likePost = async (req, res) => {
   try {
-    const { postId, userId } = req.body;
-
+    const { postId } = req.body;
+    const { userId } = req.user;
     await Like.findOne({ postId: postId, userId: userId }).then(
       async (likeData) => {
         if (likeData) {
@@ -18,7 +18,7 @@ exports.likePost = async (req, res) => {
           );
 
           res.json({
-            message: "Successfully unliked post",
+            message: "unlike",
           });
         } else {
           const response = await Like.create({ postId: postId, userId: userId });
@@ -28,7 +28,7 @@ exports.likePost = async (req, res) => {
             { new: true }
           );
           res.json({
-            message: "Successfully liked post",
+            message: "liked",
           });
         }
       }

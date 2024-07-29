@@ -1,5 +1,5 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -25,26 +25,28 @@ const Login = ({ setIsLoggedIn }) => {
     }
     axios
       .post(
-      // `${process.env.REACT_APP_BASE_URL}/login`,
-       "https://weconnect-lr69.onrender.com/login",
+        `${process.env.REACT_APP_BASE_URL}/login`,
+        // "https://weconnect-lr69.onrender.com/login",
         { userEmail, userPassword }
       )
       .then((result) => {
         if (result.data.status === "success") {
           toast.success("Login successful!");
+          localStorage.setItem('token', result.data.token);
           dispatch(setUserId(result.data.userId));
-          setIsLoggedIn(true);
-          navigate("/home");
+          navigate("/home");  
         } else {
           toast.error(result.data.message);
-          setIsLoggedIn(false);
-          navigate("/register");
         }
       })
       .catch((err) => {
         toast.error("Unable to login");
       });
   };
+
+  useEffect(() => {
+    localStorage.removeItem("token");
+  },[])
 
   return (
     <div>
@@ -83,6 +85,7 @@ const Login = ({ setIsLoggedIn }) => {
               </label>
               <input
                 type="password"
+                autoComplete="current-password"
                 placeholder="Enter Password"
                 className="form-control"
                 id="exampleInputPassword1"

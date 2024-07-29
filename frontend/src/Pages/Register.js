@@ -24,7 +24,6 @@ const Register = () => {
         }
       )
       .then((result) => {
-        console.log(result);
         if (result.data === "Email Already registered") {
           toast.success("E-mail already registered! Please Login to proceed.");
           navigate("/login");
@@ -34,8 +33,7 @@ const Register = () => {
         }
       })
       .catch((err) => {
-        console.log("Error: " + err.message);
-        console.log(userName, userEmail, userPassword);
+        toast.error("Error ocured in registration");
       });
   };
 

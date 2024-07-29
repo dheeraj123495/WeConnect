@@ -7,7 +7,6 @@ const storage = multer.memoryStorage();
 const upload = multer({ storage });
 const uploadImage = upload.single("image");
 
-
 exports.createPost = async (req, res) => {
   try {
     uploadImage(req, res, async (err) => {
@@ -16,7 +15,8 @@ exports.createPost = async (req, res) => {
           error: "Error uploading image",
         });
       }
-      const { postData, userId } = req.body;
+      const { postData } = req.body;
+      const { userId } = req.user;
       const post = new Post({
         postData,
         userId,
@@ -32,7 +32,7 @@ exports.createPost = async (req, res) => {
       );
       res.json({
         success: true,
-        post: updatedUserInfo,
+        userUpdated: updatedUserInfo,
         message: "Post saved successfully",
       });
     });
